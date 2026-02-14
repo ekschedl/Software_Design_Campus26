@@ -1,0 +1,71 @@
+//*****************************
+1. Möglichkeit: Interface wird direkt in der Objektklasse verwendet: ENTE
+2. Möglichkeit: Interface wird in einer Managerklasse verwendet: PROVISION
+//******************************
+Achte was dem Interface übergeben werden muss: TRANSPORTER
+//******************************
+
+// STRATEGY = Abstrakte Strategie
+//       Definiert die Schnittstelle für Algorithmen = execute()
+
+public interface Strategy {
+    void execute();
+   Hinweis: Die methode wird in meheren Klassen unterschiedlich verwendet.
+}
+
+//*****************************
+// CONCRETE STRATEGY = Konkrete Strategie
+//       Implementiert spezifische Algorithmen = execute()
+
+public class ConcreteStrategyA implements Strategy {
+    @Override
+    public void execute() {
+        System.out.println("Strategie A wird ausgeführt.");
+    }
+}
+
+public class ConcreteStrategyB implements Strategy {
+    @Override
+    public void execute() {
+        System.out.println("Strategie B wird ausgeführt.");
+    }
+}
+
+//*****************************
+// CONTEXT = KontextKlasse
+//       hier wird die Strategie verwendet
+
+public class Context {
+    private Strategy strategy;
+
+    public void setStrategy(Strategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public void performAction() {
+        if (strategy != null) {
+            strategy.execute();
+        } else {
+            System.out.println("Keine Strategie festgelegt.");
+        }
+    }
+}
+
+//*****************************
+// CLIENT = Hauptprogramm
+//       Wählt die Strategie zur Laufzeit aus und verwendet den Kontext = context.setStrategy()
+
+public class Client {
+    public static void main(String[] args) {
+        // Kontext erstellen
+        Context context = new Context();
+
+        // Strategie A festlegen und ausführen
+        context.setStrategy(new ConcreteStrategyA());
+        context.performAction(); // Ausgabe: "Strategie A wird ausgeführt."
+
+        // Strategie B festlegen und ausführen
+        context.setStrategy(new ConcreteStrategyB());
+        context.performAction(); // Ausgabe: "Strategie B wird ausgeführt."
+    }
+}

@@ -1,0 +1,60 @@
+Schritte zur Implementierung
+
+    Definiere ein Interface für die Observer:
+        Die Observer sollen eine gemeinsame Methode haben, um Benachrichtigungen zu erhalten.
+
+    Definiere das Subject:
+        Das Subject verwaltet eine Liste der Observer und stellt Methoden bereit, um Observer hinzuzufügen, zu entfernen und zu benachrichtigen.
+
+    Implementiere konkrete Observer:
+        Diese implementieren das Observer-Interface und reagieren auf Benachrichtigungen.
+
+    Erstelle das konkrete Subject:
+        Diese Klasse erweitert das Subject und benachrichtigt die Observer, wenn sich der Zustand ändert.
+
+    Teste das Observer Pattern:
+        Instanziiere das Subject und füge Observer hinzu.
+
+   * Schritt 1: Observer Interface
+      # void update(String message);
+
+   * Schritt 2: Subject Interface
+       # void addObserver(Observer observer); // Fügt einen Observer hinzu
+       # void removeObserver(Observer observer); // Entfernt einen Observer
+       # void notifyObservers(); // Benachrichtigt alle Observer
+
+   * Schritt 3: Konkretes Subject
+       # class ConcreteSubject implements Subject
+       # private List<Observer> observers = new ArrayList<>(); // Liste der Observer
+       # private String state; Oder Objekt Article// Zustand des Subjects
+
+       # @Override
+              public void addObserver(Observer observer)
+                  observers.add(observer);
+              public void removeObserver(Observer observer)
+                   observers.remove(observer);
+              public void notifyObservers()
+                    for (Observer observer : observers) {
+                                observer.update(state); // Aktuellen Zustand übermitteln
+                            }
+              public void setState(String state) {
+                      this.state = state;
+                      notifyObservers(); // Benachrichtige alle Observer über den neuen Zustand
+                  }
+   * Schritt 4: Konkreter Observer
+      ## private Subject subject; //Subject implementieren
+      #  private String name; // Name des Observers
+      #   public ConcreteObserver(String name)
+      #  public void update(String message) {
+                 System.out.println(name + " received update: " + message); // Ausgabe der Nachricht
+             }  Reaktion auf Benachrichtigung
+
+   * Schritt 5: Testklasse Main
+      #  Erstelle das Subject
+      ConcreteSubject subject = new ConcreteSubject();
+      #   Erstelle Observer
+
+      # Füge die Observer zum Subject hinzu
+
+      # Ändere den Zustand des Subjects  optional
+

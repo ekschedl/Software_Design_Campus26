@@ -1,0 +1,61 @@
+//*****************************
+// PRODUCT = Abstraktes Produkt
+//       Definiert die gemeinsame Schnittstelle für alle Produkte = operation()
+
+public interface Product {
+    void operation();
+}
+
+//*****************************
+// CONCRETE PRODUCT = Konkretes Produkt
+//       Implementiert die spezifische Funktionalität = operation()
+
+public class ConcreteProductA implements Product {
+    @Override
+    public void operation() {
+        System.out.println("Produkt A wurde erstellt.");
+    }
+}
+
+public class ConcreteProductB implements Product {
+    @Override
+    public void operation() {
+        System.out.println("Produkt B wurde erstellt.");
+    }
+}
+
+//*****************************
+// FACTORY ABSTRACT
+//       Erzeugt und gibt Produkte basierend auf Eingaben zurück
+      # protected abstract Product createProduct(String type)
+      # public product orderProduct(String type){
+         Product product = createProduct(type)
+         mit einzelnen methoden von abstract Produkt
+            }
+// FACTORY CONCRETE
+public class Factory {
+
+    public static Product createProduct(String type) {
+        if (type.equalsIgnoreCase("A")) {
+            return new ConcreteProductA();
+        } else if (type.equalsIgnoreCase("B")) {
+            return new ConcreteProductB();
+        }
+        else {System.out.println("Invalid Product type");}
+
+    }
+}
+
+//*****************************
+// CLIENT = Hauptprogramm
+//       Fordert Produkte von der Fabrik an und verwendet sie = factory.createProduct()
+
+public class Client {
+    public static void main(String[] args) {
+
+    #  Factory factoryConcrete = new FactoryConcrete();
+        // Produkte erstellen
+    #   Product produktA = Factory.createProduct("A");
+    #   Product produktB = Factory.createProduct("B");
+    }
+}

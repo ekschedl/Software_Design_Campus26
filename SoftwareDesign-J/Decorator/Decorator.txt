@@ -1,0 +1,42 @@
+//*****************************
+### COMPONENT = Abstrakte Basis-Komponente  == Getraenk
+
+//       Definiert die grundlegende Schnittstelle = operation()
+//          public abstact class Component
+            KANN AUCH INTERFACE SEIN!
+//           String operation(); == kostet()
+                Basisverhalten
+
+### CONCRETE COMPONENT = Konkrete Basis-Komponente == Kaffee
+//       Implementiert die Basis-Funktionalität = operation()
+//          public class ConcreteComponent extends Component
+//          public String operation()
+
+### DECORATOR = Abstrakter Dekorator   wird auch ...Decorator genannt
+//       Hält eine Referenz auf ein Component-Objekt = operation()
+
+//          public abstract class Decorator implements Component
+//               protected Component component;
+                 ENTHÄLT GETRANK!!!!
+                 Constructor mit super
+//                public abstract  String operation() ==getBeschreibung
+                   zusätzliches Basisverhalten
+
+
+### CONCRETE DECORATOR = Konkreter Dekorator
+//       Fügt zusätzliche Funktionalität hinzu = operation()
+
+//          public class ConcreteDecoratorA extends Decorator
+                Constructor mit super!
+//              public ConcreteDecoratorA(Component component)
+//               public String operation()
+                {return super.operation() + " + Erweiterung A";
+
+### CLIENT = Hauptprogramm / Main
+//       Kombiniert Basis-Komponente und Dekoratoren
+            Basisklasse a = new Concrete Component()
+
+//           a   = new ConcreteDecoratorA(a)
+//           a   = new ConcreteDecoratorB(a)
+//           a   = new ConcreteDecoratorC(a)
+

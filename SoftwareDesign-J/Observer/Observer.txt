@@ -1,0 +1,32 @@
+//*****************************
+// OBSERVER = Beobachter
+//       Beobachter registrieren sich beim Subject und reagieren auf Änderungen = update()
+//          public interface Observer   mit   void update()
+
+// SUBJECT = Beobachtetes Objekt
+//       Verwalten der Observer und Benachrichtigen = addObserver(), removeObserver(), notifyObservers()
+//          public interface Subject   mit   addObserver(), removeObserver(), notifyObservers()
+
+
+// CONCRETE SUBJECT = Konkretes beobachtetes Objekt
+//       Implementiert Subject, speichert Zustand = setState()
+//          public class ConcreteSubject implements Subject
+//          mit: private List<Observer> observers = new ArrayList<>();
+                     private String state; // Beispielzustand
+
+// CONCRETE OBSERVER = Konkreter Beobachter
+//       Reagiert auf Änderungen des Subjects = update()
+//          public class ConcreteObserver implements Observer
+//                  private String observerName;
+//                  private ConcreteSubject subject;
+//                    public void update()
+
+// CLIENT = Hauptprogramm
+//       Verbindet Observer und Subject, löst Änderungen aus = subject.setState()
+//           Erstellen des Subjects
+                ConcreteSubject subject = new ConcreteSubject();
+//           Erstellen von Observern und Hinzufügen zum Subject
+//               ConcreteObserver observer1 = new ConcreteObserver("Observer 1", subject);
+//               subject.addObserver(observer1);
+//           Änderungen am Zustand des Subjects
+//                  subject.setState("Zustand 1");

@@ -1,0 +1,16 @@
+//*****************************
+// TARGET = Interface
+//       Erwartete Schnittstelle vom Client = request()
+
+// ADAPTEE = Klasse
+//       Die anzupassende Schnittstelle = specificRequest()
+
+// ADAPTER = Übersetzer
+//       Implementiert das Target-Interface und ruft Adaptee-Methoden auf = adaptee.specificRequest()
+//       Adaptiert die Methoden um ähnliches Verhalten zu simulieren!
+// CLIENT = Hauptprogramm
+//       Verwendet das Target-Interface, ohne Adaptee direkt zu kennen = adapter.request()
+
+// Beispielaufbau:
+Target adapter = new Adapter(new Adaptee()); // Adapter erstellen
+adapter.request(); // Client-Aufruf

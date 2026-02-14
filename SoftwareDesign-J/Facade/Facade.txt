@@ -1,0 +1,68 @@
+//*****************************
+// SUBSYSTEM = Komplexe Klassen
+//       Stellt die einzelnen Komponenten und deren Funktionalität bereit
+
+public class SubsystemA {
+    public void operationA() {
+        System.out.println("SubsystemA: Operation A wird ausgeführt.");
+    }
+}
+
+public class SubsystemB {
+    public void operationB() {
+        System.out.println("SubsystemB: Operation B wird ausgeführt.");
+    }
+}
+
+public class SubsystemC {
+    public void operationC() {
+        System.out.println("SubsystemC: Operation C wird ausgeführt.");
+    }
+}
+
+//*****************************
+// FACADE = Vereinfachte Schnittstelle
+//       Bietet einfache Methoden für komplexe Aktionen im Subsystem
+
+public class Facade {
+    private SubsystemA subsystemA;
+    private SubsystemB subsystemB;
+    private SubsystemC subsystemC;
+
+    public Facade() {
+        this.subsystemA = new SubsystemA();
+        this.subsystemB = new SubsystemB();
+        this.subsystemC = new SubsystemC();
+    }
+
+    public void performAction1() {
+        System.out.println("Fassade: Aktion 1 wird ausgeführt.");
+        subsystemA.operationA();
+        subsystemB.operationB();
+    }
+
+    public void performAction2() {
+        System.out.println("Fassade: Aktion 2 wird ausgeführt.");
+        subsystemB.operationB();
+        subsystemC.operationC();
+    }
+}
+
+//*****************************
+// CLIENT = Hauptprogramm
+//       Verwendet die Fassade, um mit dem Subsystem zu interagieren
+
+public class Client {
+    public static void main(String[] args) {
+        // Erstellen der Fassade
+        Facade facade = new Facade();
+
+        // Verwenden der Fassade
+        System.out.println("Client ruft Aktion 1 auf:");
+        facade.performAction1();
+
+        System.out.println("\nClient ruft Aktion 2 auf:");
+        facade.performAction2();
+    }
+}
+

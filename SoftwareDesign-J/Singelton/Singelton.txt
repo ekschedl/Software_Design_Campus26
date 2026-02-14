@@ -1,0 +1,42 @@
+//*****************************
+// SINGLETON = Die einzige Instanz
+//       Stellt sicher, dass nur eine Instanz existiert = getInstance()
+
+public class Singleton {
+    // Statische Variable, die die einzige Instanz speichert
+    private static Singleton instance;
+
+    // Privater Konstruktor, damit keine anderen Instanzen erstellt werden können
+    private Singleton() {}
+
+    // Statische Methode, die die einzige Instanz zurückgibt
+    public static Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+
+    // Beispielmethode, die vom Client verwendet werden kann
+    public void doSomething() {
+        System.out.println("Singleton: Aktion ausgeführt.");
+    }
+}
+
+//*****************************
+// CLIENT = Hauptprogramm
+//       Verwendet die Singleton-Klasse = Singleton.getInstance()
+
+public class Client {
+    public static void main(String[] args) {
+        // Zugriff auf die Singleton-Instanz
+        Singleton singleton = Singleton.getInstance();
+
+        // Verwenden der Singleton-Instanz
+        singleton.doSomething();
+
+        // Test: Überprüfen, ob nur eine Instanz existiert
+        Singleton anotherSingleton = Singleton.getInstance();
+        System.out.println("Gleiche Instanz? " + (singleton == anotherSingleton)); // Ausgabe: true
+    }
+}

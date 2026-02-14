@@ -1,0 +1,33 @@
+Transporter Klasse
+Attribute:
+
+String name
+double kilometerFee (Kosten pro Kilometer )
+double kilogramFee (Kosten pro Kilogram)
+Alle drei Attribute sollen über den Konstruktor gesetzt werden können und für alle drei sollen Getter implementiert sein.
+
+Parcel Klasse
+Attribute:
+
+Transporter transporter
+double weight
+int distance
+Methoden:
+
+double calcPrice(...)
+Alle drei Attribute sollen über den Konstruktor gesetzt werden können. Es wird empfohlen, für alle drei Attribute Getter zu implementieren, um in den konkreten Strategien auf diese zugreifen zu können.
+
+Strategy Muster
+Die Methode calcPrice(…) soll auf verschiedene Arten der Errechnung des Preises zurückgreifen können:
+
+WeightStrategy: Errechnet den Preis anhand kilogramFee * weight.
+
+DistanceStrategy: Errechnet den Preis anhand kilometerFee * distance.
+
+Verwenden Sie den die Tests in der Datei Versandkostenberechnung Tests Datei um Ihren Code zu testen.
+
+
+Zuletzt geändert: Donnerstag, 5. Dezember 2024, 12:38
+Direkt zu:
+Direkt zu:
+Datenschutzerklärung für Moodle-Nutzer*innen

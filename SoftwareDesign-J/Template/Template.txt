@@ -1,0 +1,78 @@
+//*****************************
+// ABSTRACT CLASS = Abstrakte Klasse
+//       Definiert die Template-Methode und enthält allgemeine Logik = templateMethod()
+
+public abstract class AbstractClass {
+    // Template-Methode: Definiert den Ablauf des Algorithmus
+    public final void templateMethod() {
+        step1();
+        step2();
+        hook(); // Optionaler Schritt
+        step3();
+    }
+
+    // Abstrakte Schritte (müssen von Unterklassen implementiert werden)
+    protected abstract void step1();
+    protected abstract void step2();
+
+    // Optionaler Schritt mit Standardverhalten
+    protected void hook() {
+        // Kann in Unterklassen überschrieben werden
+    }
+
+    // Konkreter Schritt (Standardimplementierung)
+    protected void step3() {
+        System.out.println("Allgemeiner Schritt 3 wird ausgeführt.");
+    }
+}
+
+//*****************************
+// CONCRETE CLASS = Konkrete Klasse
+//       Implementiert die abstrakten Schritte = step1(), step2()
+
+public class ConcreteClassA extends AbstractClass {
+    @Override
+    protected void step1() {
+        System.out.println("ConcreteClassA: Schritt 1");
+    }
+
+    @Override
+    protected void step2() {
+        System.out.println("ConcreteClassA: Schritt 2");
+    }
+}
+
+public class ConcreteClassB extends AbstractClass {
+    @Override
+    protected void step1() {
+        System.out.println("ConcreteClassB: Schritt 1");
+    }
+
+    @Override
+    protected void step2() {
+        System.out.println("ConcreteClassB: Schritt 2");
+    }
+
+    @Override
+    protected void hook() {
+        System.out.println("ConcreteClassB: Optionaler Hook-Schritt");
+    }
+}
+
+//*****************************
+// CLIENT = Hauptprogramm
+//       Verwendet die Template-Methode = templateMethod()
+
+public class Client {
+    public static void main(String[] args) {
+        // Instanz der konkreten Klasse A
+        AbstractClass objectA = new ConcreteClassA();
+        System.out.println("Ausführung mit ConcreteClassA:");
+        objectA.templateMethod();
+
+        // Instanz der konkreten Klasse B
+        AbstractClass objectB = new ConcreteClassB();
+        System.out.println("\nAusführung mit ConcreteClassB:");
+        objectB.templateMethod();
+    }
+}
