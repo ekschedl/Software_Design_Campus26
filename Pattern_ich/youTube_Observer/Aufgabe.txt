@@ -1,0 +1,2 @@
+Ein YouTubeChannel veröffentlicht Videos.
+Mehrere Subscriber sollen automatisch benachrichtigt werden, wenn ein neues Video erscheint.

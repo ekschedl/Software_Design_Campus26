@@ -1,0 +1,73 @@
+Ein YouTubeChannel veröffentlicht Videos.
+Mehrere Subscriber sollen automatisch
+benachrichtigt werden, wenn ein neues Video erscheint.
+
+Erweiterung – Command Pattern
+
+Statt dass der Channel direkt subscriber.update(video) aufruft,
+soll jede Benachrichtigung als Command-Objekt gekapselt werden.
+
+Diese Commands sollen:
+	•	erzeugt werden beim Upload
+	•	ausgeführt werden
+	•	optional gespeichert werden (für späteres Re-Play)
+
+⸻
+Subscriber (Receiver)
+     ↑
+NotifyCommand (Command)
+     ↑
+YouTubeChannel (Invoker + Subject)
+********************
+Receiver
+Subscriber
+
+Command Interface
+NotificationCommand
+
+Concrete Command
+NotifySubscriberCommand
+
+Invoker
+YouTubeChannel
+
+Client
+Main
+*******************************
+ ALGORITHMUS – Observer + Command
+ 1. Subscriber Interface bleibt wie gehabt
+
+ 2. Erstelle Command Interface:
+
+    interface NotificationCommand {
+        void execute();
+    }
+
+ 3. Erstelle Concrete Command:
+
+    class NotifySubscriberCommand
+        implements NotificationCommand {
+
+        private Subscriber subscriber;
+        private Video video;
+
+        Konstruktor erhält subscriber + video
+
+        execute():
+            subscriber.update(video);
+    }
+
+ 4. YouTubeChannel verändert notify():
+
+    Statt:
+        subscriber.update(video)
+
+    Jetzt:
+        NotificationCommand cmd =
+            new NotifySubscriberCommand(subscriber, video);
+
+        cmd.execute();
+
+ 5. Optional:
+    Channel speichert alle Commands in Liste,
+    um sie später erneut auszuführen.

@@ -1,0 +1,37 @@
+Ein YouTubeChannel veröffentlicht Videos.
+Mehrere Subscriber sollen automatisch benachrichtigt werden, wenn ein neues Video erscheint.
+
+Erweiterung – Singleton Pattern
+
+Es soll im System nur einen einzigen YouTubeChannel geben.
+
+Egal wo im Programm man darauf zugreift –
+es muss immer dieselbe Instanz verwendet werden.
+Main
+  ↓
+YouTubeChannel (Singleton + Subject)
+  ↓
+Subscriber (Observer)
+
+
+1. Subscriber Interface bleibt unverändert
+
+2. EmailSubscriber / MobileSubscriber implementieren Subscriber
+
+3. YouTubeChannel wird Singleton:
+
+   - private static YouTubeChannel instance
+   - private Konstruktor
+   - public static getInstance()
+
+4. Liste der Subscriber bleibt im Channel
+
+5. addSubscriber() bleibt
+
+6. uploadVideo() ruft notifySubscribers()
+
+7. Main darf NICHT new YouTubeChannel() verwenden
+   sondern:
+
+   YouTubeChannel channel =
+       YouTubeChannel.getInstance();

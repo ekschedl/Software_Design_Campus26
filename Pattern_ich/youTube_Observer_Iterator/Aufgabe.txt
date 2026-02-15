@@ -1,0 +1,59 @@
+Ein YouTubeChannel veröffentlicht Videos.
+Mehrere Subscriber sollen automatisch benachrichtigt werden, wenn ein neues Video erscheint.
+
+
+	Wenn ein neues Video hochgeladen wird → werden alle benachrichtigt (Observer).
+	•	Zusätzlich soll es möglich sein, über alle Subscriber zu iterieren, z.B. um sie auszugeben.
+
+👉 Implementieren Sie das Iterator Pattern für die Subscriber-Liste.
+
+Observer-Regel:
+Subject kennt Observer
+Observer kennt Subject nicht
+
+Iterator-Regel:
+Liste bleibt private
+Zugriff nur über Iterator
+
+
+1. Observer bleibt unverändert
+   - Subscriber Interface
+   - Concrete Subscriber
+   - YouTubeChannel mit addSubscriber()
+
+2. Definiere Iterator Interface
+   interface SubscriberIterator {
+       boolean hasNext();
+       Subscriber next();
+   }
+
+3. Erstelle Concrete Iterator
+
+   class ChannelSubscriberIterator implements SubscriberIterator {
+
+       private List<Subscriber> subscribers;
+       private int position = 0;
+
+       Konstruktor erhält Liste
+
+       hasNext():
+           return position < subscribers.size()
+
+       next():
+           return subscribers.get(position++)
+   }
+
+4. YouTubeChannel erweitert um:
+
+   public SubscriberIterator createIterator() {
+       return new ChannelSubscriberIterator(subscribers);
+   }
+
+5. Main kann nun:
+
+   SubscriberIterator it = channel.createIterator();
+
+   while(it.hasNext()) {
+       Subscriber s = it.next();
+       System.out.println(s.getName());
+   }

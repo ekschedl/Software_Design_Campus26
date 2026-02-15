@@ -1,0 +1,32 @@
+Ein YouTubeChannel veröffentlicht Videos.
+Mehrere Subscriber sollen automatisch benachrichtigt werden, wenn ein neues Video erscheint.
+
+1️⃣ Erweiterung mit STRATEGY
+
+💡 Idee:
+
+Nicht jeder Subscriber reagiert gleich.
+
+Beispiel:
+	•	Manche wollen nur Videos über „Gaming“
+	•	Andere nur über „Education“
+
+	Lösung:
+
+    Neue Strategy:
+    interface NotificationStrategy {
+        boolean shouldNotify(Video video);
+    }
+
+    Konkrete Strategie:
+    class GamingStrategy implements NotificationStrategy {
+        public boolean shouldNotify(Video video) {
+            return video.getCategory().equals("Gaming");
+        }
+    }
+    Subscriber bekommt:
+    private NotificationStrategy strategy;
+    Und in update():
+    if(strategy.shouldNotify(video)) {
+        System.out.println("Notify...");
+    }

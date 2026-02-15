@@ -1,0 +1,52 @@
+Ein YouTubeChannel veröffentlicht Videos.
+Mehrere Subscriber sollen automatisch benachrichtigt werden, wenn ein neues Video erscheint.
+
+Erweiterung – Facade Pattern
+
+Das System soll vereinfacht werden.
+
+Ein Client/Main soll nicht mehr direkt:
+	•	Channel erstellen
+	•	Subscriber registrieren
+	•	Videos hochladen
+
+Sondern alles über eine YouTubePlatformFacade steuern können.
+Main
+   ↓
+YouTubePlatformFacade
+   ↓
+YouTubeChannel (Observer Subject)
+   ↓
+Subscriber
+
+1. Observer Pattern bleibt wie gehabt
+   - Subscriber Interface
+   - EmailSubscriber
+   - MobileSubscriber
+   - YouTubeChannel mit notifySubscribers()
+
+2. Erstelle neue Klasse:
+   YouTubePlatformFacade
+
+3. In der Facade:
+   - private YouTubeChannel channel
+
+4. Konstruktor:
+   - channel = new YouTubeChannel()
+
+5. Methode:
+   registerEmailSubscriber(String name)
+       → new EmailSubscriber(name)
+       → channel.addSubscriber(...)
+
+6. Methode:
+   registerMobileSubscriber(String name)
+       → new MobileSubscriber(name)
+       → channel.addSubscriber(...)
+
+7. Methode:
+   uploadVideo(String title, String description)
+       → new Video(...)
+       → channel.uploadVideo(video)
+
+8. Main benutzt nur Facade

@@ -1,0 +1,108 @@
+Ein YouTubeChannel veröffentlicht Videos.
+Mehrere Subscriber sollen automatisch benachrichtigt werden, wenn ein neues Video erscheint.
+
+Erweiterung – Decorator Pattern
+
+Ein Subscriber soll dynamisch erweitert werden können,
+ ohne seine Klasse zu verändern.
+
+ 🔹 Neue Anforderungen
+ 	1.	Implementieren Sie das Decorator Pattern für Subscriber.
+ 	2.	Erstellen Sie folgende Decorator-Klassen:
+ 	🔵 LoggingSubscriberDecorator
+	•	Gibt vor jeder Benachrichtigung aus:LOG: Subscriber wird benachrichtigt
+		•	Danach wird der ursprüngliche Subscriber informiert.
+    🔵PremiumSubscriberDecorator
+    	•	Gibt zusätzlich aus: Premium Feature aktiviert
+    		•	Danach wird der ursprüngliche Subscriber informiert.
+
+🔹 Technische Bedingungen
+	•	Subscriber bleibt Interface.
+	•	Decorator muss ebenfalls Subscriber implementieren.
+	•	Decorator erhält im Konstruktor einen Subscriber.
+	•	Observer Pattern darf nicht verändert werden.
+
+	Subscriber (Interface)
+            ↑
+    ConcreteSubscriber (Email, Mobile)
+            ↑
+    SubscriberDecorator (abstrakt)
+            ↑
+    LoggingSubscriberDecorator
+    PremiumSubscriberDecorator
+
+***************************************************************
+
+    ALGORITHMUS: Observer + Decorator (YouTube Beispiel)
+
+    1. DEFINIERE INTERFACE (Observer)
+       - Erstelle Interface Subscriber
+       - Methoden:
+            void update(Video video)
+            String getName()
+
+    2. IMPLEMENTIERE CONCRETE SUBSCRIBER
+       - Klassen:
+            EmailSubscriber
+            MobileSubscriber
+       - Beide implementieren Subscriber
+       - In update() wird Video-Titel ausgegeben
+
+    3. IMPLEMENTIERE SUBJECT (YouTubeChannel)
+       - Liste<Subscriber> subscribers
+       - addSubscriber(Subscriber s)
+       - removeSubscriber(Subscriber s)
+       - uploadVideo(Video video)
+             → ruft intern notifySubscribers(video)
+       - notifySubscribers(Video video)
+             → Schleife über subscribers
+             → subscriber.update(video)
+
+       WICHTIG:
+       - Subscriber kennt Channel nicht
+       - Nur Channel kennt Subscriber
+
+    4. IMPLEMENTIERE ABSTRAKTEN DECORATOR
+       - Klasse SubscriberDecorator
+       - implementiert Subscriber
+       - enthält:
+             protected Subscriber subscriber
+       - Konstruktor:
+             SubscriberDecorator(Subscriber subscriber)
+       - update(video) delegiert an:
+             subscriber.update(video)
+       - getName() delegiert ebenfalls
+
+       MERKSATZ:
+       Decorator ist Subscriber
+       Decorator hat Subscriber
+
+    5. IMPLEMENTIERE LoggingSubscriberDecorator
+       - erbt von SubscriberDecorator
+       - überschreibt update(video)
+             → System.out.println("LOG: Subscriber wird benachrichtigt")
+             → super.update(video)
+
+    6. IMPLEMENTIERE PremiumSubscriberDecorator
+       - erbt von SubscriberDecorator
+       - überschreibt update(video)
+             → System.out.println("Premium Feature aktiviert")
+             → super.update(video)
+
+    7. VERWENDUNG IM MAIN
+       Subscriber mobile = new MobileSubscriber("Max");
+
+       Subscriber premium =
+           new PremiumSubscriberDecorator(mobile);
+
+       Subscriber loggingPremium =
+           new LoggingSubscriberDecorator(premium);
+
+       channel.addSubscriber(loggingPremium);
+
+       channel.uploadVideo(new Video(...));
+
+    ERGEBNIS:
+       LOG: Subscriber wird benachrichtigt
+       Premium Feature aktiviert
+       Max bekommt Video ...

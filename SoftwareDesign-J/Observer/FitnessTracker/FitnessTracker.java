@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FitnessTracker {
+
     private List<Geraete> geraeteListe = new ArrayList<Geraete>();
 
     public void addGeraete(Geraete geraete) {
