@@ -17,9 +17,25 @@ public class LegacyAdapter implements DataSource {
        return instance;
    }
 
+    @Override
+    public String fetchDataSource(String query) {
+        return legacySystem.getData(query);
+    }
+}
+/*
+  ohne singleton
+
+public class LegacyAdapter implements DataSource {
+
+    private LegacySystem legacySystem;
+
+    public LegacyAdapter(LegacySystem legacySystem) {
+        this.legacySystem = legacySystem;
+    }
 
     @Override
     public String fetchDataSource(String query) {
         return legacySystem.getData(query);
     }
 }
+ */
