@@ -1,0 +1,7 @@
+package Command_Pattern_alle_3_V_Fernbedienung.drittes;
+
+// Alle Kommandos implementieren gleiches Interface
+public interface Kommando {
+    public void ausfuehren();
+    public void undo();
+}

@@ -1,0 +1,65 @@
+1️⃣ Observer Interface prüfen
+public interface Abonnent {
+    void update(Artikel artikel);
+}
+
+2️⃣ Subject Klasse anschauen → Medienverlag
+Was brauchst du dort?
+
+A) Liste von Abonnenten
+private List<Abonnent> abonnenten = new ArrayList<>();
+B) Methoden zum Registrieren
+public void registriere(Abonnent a) {
+    abonnenten.add(a);
+}
+
+public void entferne(Abonnent a) {
+    abonnenten.remove(a);
+}
+C) notify() Methode
+private void informiereAlle(Artikel artikel) {
+    for (Abonnent a : abonnenten) {
+        a.update(artikel);
+    }
+}
+D) Artikel veröffentlichen
+public void veroeffentlicheArtikel(Artikel artikel) {
+    informiereAlle(artikel);
+}
+
+3️⃣ Concrete Observer implementieren
+Jetzt gehst du zu:
+	•	PrintAbonnent
+	•	SMSAbonnent
+	•	WebAbonnent
+	public class PrintAbonnent implements Abonnent {
+
+        private String name;
+
+        public PrintAbonnent(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public void update(Artikel artikel) {
+            System.out.println("Print für " + name + ": " + artikel.getTitel());
+        }
+    } etc...
+
+4️⃣ Main testen
+    public static void main(String[] args) {
+
+        Medienverlag verlag = new Medienverlag();
+
+        Abonnent a1 = new PrintAbonnent("Anna");
+        Abonnent a2 = new SMSAbonnent("Max");
+        Abonnent a3 = new WebAbonnent("Lisa");
+
+        verlag.registriere(a1);
+        verlag.registriere(a2);
+        verlag.registriere(a3);
+
+        Artikel artikel = new Artikel("Neuer Artikel");
+
+        verlag.veroeffentlicheArtikel(artikel);
+    }

@@ -1,0 +1,27 @@
+Adapter implements Target, Target ist das Interface, das das System erwartet.
+Adapter contains Adaptee,  Adaptee ist die vorhandene Klasse, die nicht passt,die angepasst werden muss
+Client works only with Target
+
+Wenn zwei Klassen nicht zusammenpassen, weil ihre Schnittstellen unterschiedlich sind.
+
+Beispiel:
+	•	System erwartet Dog mit bark()
+	•	Wir haben aber Cat mit meow()
+
+	Zweck:
+    	•	Bestehenden Code nicht ändern
+    	•	Fremdbibliotheken integrieren
+    	•	Legacy-Systeme einbinden
+
+    	Adapter löst ein Schnittstellenproblem.
+
+
+Adapter Pattern:
+	•	Ziel: Schnittstellen anpassen
+	•	Target: erwartetes Interface
+	•	Adaptee: bestehende inkompatible Klasse
+	•	Adapter: implementiert Target + enthält Adaptee
+	•	Technik: Komposition
+	•	Darf zusätzliche Logik enthalten
+
+

@@ -1,0 +1,9 @@
+1. Server wird erstellt
+	2.	Geräte registrieren sich
+	3.	addPodcast() wird aufgerufen
+	4.	notifyObservers() wird automatisch ausgeführt
+	5.	Alle Geräte bekommen update()
+
+	Subject speichert Observer in einer Liste.
+    Wenn sich der Zustand ändert, ruft das Subject notifyObservers() auf.
+    Jeder Observer implementiert update() und reagiert individuell.
