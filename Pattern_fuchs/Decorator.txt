@@ -3,6 +3,9 @@
  * 
  * Das Decorator Pattern erlaubt es, Objekten dynamisch neue Funktionalität hinzuzufügen,
  * ohne deren Struktur zu ändern. Es ist eine Alternative zur Vererbung.
+
+Das Decorator Pattern erlaubt es, Objekten zur Laufzeit zusätzliche Funktionalität hinzuzufügen, ohne ihre Klasse zu verändern.
+Es fördert Austauschbarkeit, Erweiterbarkeit und unterstützt das Open/Closed-Prinzip.
  */
 
 // ============================================

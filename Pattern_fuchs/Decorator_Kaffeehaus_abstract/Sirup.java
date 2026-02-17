@@ -1,4 +1,4 @@
-package Decorator_Kaffeehaus;
+package Decorator_Kaffeehaus_abstract;
 
 public class Sirup extends ZutatDecorator {
     public Sirup(Getraenk getraenk) {

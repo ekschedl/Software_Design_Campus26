@@ -1,4 +1,4 @@
-package Decorator_Kaffeehaus;
+package Decorator_Kaffeehaus_abstract;
 
 public class Main {
     public static void main(String[] args) {

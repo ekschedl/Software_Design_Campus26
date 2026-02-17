@@ -1,4 +1,4 @@
-package Decorator_Kaffeehaus;
+package Decorator_Kaffeehaus_abstract;
 
 public abstract class ZutatDecorator extends Getraenk {
     protected Getraenk getraenk;
