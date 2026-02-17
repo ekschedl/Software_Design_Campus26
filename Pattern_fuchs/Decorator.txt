@@ -1,0 +1,164 @@
+/**
+ * Decorator Pattern Beispiel in Java
+ * 
+ * Das Decorator Pattern erlaubt es, Objekten dynamisch neue Funktionalität hinzuzufügen,
+ * ohne deren Struktur zu ändern. Es ist eine Alternative zur Vererbung.
+ */
+
+// ============================================
+// 1. KOMPONENTE (Component Interface)
+// ============================================
+// Dies ist die Basis-Schnittstelle, die sowohl die konkreten Komponenten
+// als auch die Decorators implementieren müssen.
+interface Getraenk {
+    String getBeschreibung();  // Gibt die Beschreibung des Getränks zurück
+    double getPreis();          // Gibt den Preis des Getränks zurück
+}
+
+// ============================================
+// 2. KONKRETE KOMPONENTE (Concrete Component)
+// ============================================
+// Dies ist die Basis-Komponente, die wir später "dekorieren" werden.
+class Kaffee implements Getraenk {
+    @Override
+    public String getBeschreibung() {
+        return "Kaffee";  // Einfache Basis-Beschreibung
+    }
+    
+    @Override
+    public double getPreis() {
+        return 2.50;  // Basis-Preis für Kaffee
+    }
+}
+
+// ============================================
+// 3. ABSTRAKTER DECORATOR (Abstract Decorator)
+// ============================================
+// Der Decorator hält eine Referenz auf ein Getraenk-Objekt
+// und delegiert die Methodenaufrufe an dieses Objekt.
+abstract class GetraenkDecorator implements Getraenk {
+    protected Getraenk getraenk;  // Referenz auf das zu dekorierende Getränk
+    
+    // Konstruktor: Nimmt ein Getraenk-Objekt entgegen
+    public GetraenkDecorator(Getraenk getraenk) {
+        this.getraenk = getraenk;
+    }
+    
+    // Die Methoden werden an das dekorierte Objekt delegiert
+    @Override
+    public String getBeschreibung() {
+        return getraenk.getBeschreibung();
+    }
+    
+    @Override
+    public double getPreis() {
+        return getraenk.getPreis();
+    }
+}
+
+// ============================================
+// 4. KONKRETE DECORATORS (Concrete Decorators)
+// ============================================
+// Jeder Decorator fügt spezifische Funktionalität hinzu
+
+// Decorator 1: Milch hinzufügen
+class MilchDecorator extends GetraenkDecorator {
+    public MilchDecorator(Getraenk getraenk) {
+        super(getraenk);  // Ruft den Konstruktor der Basisklasse auf
+    }
+    
+    @Override
+    public String getBeschreibung() {
+        // Fügt "mit Milch" zur bestehenden Beschreibung hinzu
+        return getraenk.getBeschreibung() + ", mit Milch";
+    }
+    
+    @Override
+    public double getPreis() {
+        // Fügt 0.50€ zum bestehenden Preis hinzu
+        return getraenk.getPreis() + 0.50;
+    }
+}
+
+// Decorator 2: Zucker hinzufügen
+class ZuckerDecorator extends GetraenkDecorator {
+    public ZuckerDecorator(Getraenk getraenk) {
+        super(getraenk);
+    }
+    
+    @Override
+    public String getBeschreibung() {
+        return getraenk.getBeschreibung() + ", mit Zucker";
+    }
+    
+    @Override
+    public double getPreis() {
+        return getraenk.getPreis() + 0.20;  // Zucker kostet 0.20€
+    }
+}
+
+// Decorator 3: Sahne hinzufügen
+class SahneDecorator extends GetraenkDecorator {
+    public SahneDecorator(Getraenk getraenk) {
+        super(getraenk);
+    }
+    
+    @Override
+    public String getBeschreibung() {
+        return getraenk.getBeschreibung() + ", mit Sahne";
+    }
+    
+    @Override
+    public double getPreis() {
+        return getraenk.getPreis() + 0.70;  // Sahne kostet 0.70€
+    }
+}
+
+// ============================================
+// 5. VERWENDUNG (Client Code)
+// ============================================
+public class DecoratorPatternExample {
+    public static void main(String[] args) {
+        // Einfacher Kaffee ohne Zusätze
+        Getraenk kaffee = new Kaffee();
+        System.out.println(kaffee.getBeschreibung() + " - Preis: " + kaffee.getPreis() + "€");
+        // Ausgabe: Kaffee - Preis: 2.5€
+        
+        // Kaffee mit Milch
+        Getraenk kaffeeMitMilch = new MilchDecorator(new Kaffee());
+        System.out.println(kaffeeMitMilch.getBeschreibung() + " - Preis: " + kaffeeMitMilch.getPreis() + "€");
+        // Ausgabe: Kaffee, mit Milch - Preis: 3.0€
+        
+        // Kaffee mit Milch und Zucker (mehrere Decorators verschachtelt)
+        Getraenk kaffeeMitMilchUndZucker = new ZuckerDecorator(
+            new MilchDecorator(new Kaffee())
+        );
+        System.out.println(kaffeeMitMilchUndZucker.getBeschreibung() + " - Preis: " + 
+                          kaffeeMitMilchUndZucker.getPreis() + "€");
+        // Ausgabe: Kaffee, mit Milch, mit Zucker - Preis: 3.2€
+        
+        // Kaffee mit allen Zusätzen (Milch, Zucker, Sahne)
+        Getraenk kaffeeDeluxe = new SahneDecorator(
+            new ZuckerDecorator(
+                new MilchDecorator(new Kaffee())
+            )
+        );
+        System.out.println(kaffeeDeluxe.getBeschreibung() + " - Preis: " + 
+                          kaffeeDeluxe.getPreis() + "€");
+        // Ausgabe: Kaffee, mit Milch, mit Zucker, mit Sahne - Preis: 3.9€
+    }
+}
+
+/**
+ * ZUSAMMENFASSUNG:
+ * 
+ * Vorteile des Decorator Patterns:
+ * - Flexibilität: Kombinationen zur Laufzeit möglich
+ * - Erweiterbarkeit: Neue Decorators können einfach hinzugefügt werden
+ * - Keine Änderung der Basis-Klasse nötig
+ * - Vermeidet Klassenexplosion (statt Kaffee, KaffeeMitMilch, KaffeeMitZucker, 
+ *   KaffeeMitMilchUndZucker, etc. zu haben, kombinieren wir einfach Decorators)
+ * 
+ * Wichtig: Die Decorators werden von außen nach innen aufgerufen,
+ * daher wird die Beschreibung/der Preis von innen nach außen aufgebaut.
+ */
