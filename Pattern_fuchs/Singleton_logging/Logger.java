@@ -5,7 +5,7 @@ public class Logger {
     // 1. Eine einzige Instanz
     private static Logger instance;
 
-    // 2. Privater Konstruktor (niemand darf new Logger() machen)
+    // 2. Privater Konstruktor (niemand darf new Logger() machen) kann auch mehrere Konstruktor haben
     private Logger() {
     }
 

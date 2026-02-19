@@ -29,6 +29,7 @@ public class Einkaufstasche implements Iterable<Artikel> {
 
     @Override
     public Iterator<Artikel> iterator() {
+
         return new ArtikelListeIterator(artikel);
     }
 }

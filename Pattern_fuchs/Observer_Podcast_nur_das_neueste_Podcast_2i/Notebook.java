@@ -1,12 +1,8 @@
-package Observer_Podcast_nurLetztes;
+package Observer_Podcast_nur_das_neueste_Podcast_2i;
 
-import Observer_Podcast_nur_das_neueste_Podcast_2i.Geraet_observer;
-import Observer_Podcast_nur_das_neueste_Podcast_2i.Podcast;
-import Observer_Podcast_nur_das_neueste_Podcast_2i.Server_subject;
+public class Notebook implements Geraet_observer{
 
-public class Notebook implements Geraet_observer {
-
-    public Observer_Podcast_nur_das_neueste_Podcast_2i.Server_subject server_subject;
+    public Server_subject server_subject;
 
     // registriert sich selbst beim Server.
     public Notebook(Server_subject server_subject) {

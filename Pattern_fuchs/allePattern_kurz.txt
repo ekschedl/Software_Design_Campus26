@@ -1,0 +1,365 @@
+// ===============================================================
+// DESIGN PATTERNS – ALLE MIT EIGENEN MAIN-BEISPIELEN
+// (Kopierfertig – jede Sektion hat ein eigenes Main)
+// ===============================================================
+
+import java.util.*;
+
+
+// ===============================================================
+// 1️⃣ ADAPTER PATTERN
+// ===============================================================
+
+interface MediaPlayer {
+    void play(String fileName);
+}
+
+class OldDVDPlayer {
+    void startDVD(String name) {
+        System.out.println("Old DVD startet: " + name);
+    }
+}
+
+class DVDAdapter implements MediaPlayer {
+    private OldDVDPlayer oldPlayer;
+
+    DVDAdapter(OldDVDPlayer oldPlayer) {
+        this.oldPlayer = oldPlayer;
+    }
+
+    public void play(String fileName) {
+        System.out.println("Adapter übersetzt...");
+        oldPlayer.startDVD(fileName);
+    }
+}
+
+class AdapterMain {
+    public static void main(String[] args) {
+        OldDVDPlayer oldPlayer = new OldDVDPlayer();
+        MediaPlayer player = new DVDAdapter(oldPlayer);
+        player.play("Matrix.mp4");
+    }
+}
+
+
+// ===============================================================
+// 2️⃣ COMMAND PATTERN
+// ===============================================================
+
+interface Command {
+    void execute();
+}
+
+class TV {
+    void kanalAuf() { System.out.println("TV Kanal +1"); }
+}
+
+class TVPlusCommand implements Command {
+    private TV tv;
+
+    TVPlusCommand(TV tv) { this.tv = tv; }
+
+    public void execute() {
+        tv.kanalAuf();
+    }
+}
+
+class Fernbedienung {
+    private Command command;
+
+    void setCommand(Command command) {
+        this.command = command;
+    }
+
+    void buttonDruecken() {
+        command.execute();
+    }
+}
+
+class CommandMain {
+    public static void main(String[] args) {
+        TV tv = new TV();
+        Command plus = new TVPlusCommand(tv);
+
+        Fernbedienung fb = new Fernbedienung();
+        fb.setCommand(plus);
+        fb.buttonDruecken();
+    }
+}
+
+
+// ===============================================================
+// 3️⃣ DECORATOR PATTERN
+// ===============================================================
+
+interface Kaffee {
+    double preis();
+}
+
+class Espresso implements Kaffee {
+    public double preis() { return 2.0; }
+}
+
+abstract class KaffeeDecorator implements Kaffee {
+    protected Kaffee kaffee;
+
+    KaffeeDecorator(Kaffee k) {
+        this.kaffee = k;
+    }
+}
+
+class MilchDecorator extends KaffeeDecorator {
+    MilchDecorator(Kaffee k) { super(k); }
+
+    public double preis() {
+        return kaffee.preis() + 0.5;
+    }
+}
+
+class DecoratorMain {
+    public static void main(String[] args) {
+
+        Kaffee k = new MilchDecorator(new Espresso());
+        System.out.println("Preis: " + k.preis());
+    }
+}
+
+
+// ===============================================================
+// 4️⃣ FACADE PATTERN
+// ===============================================================
+
+class DVD {
+    void an() { System.out.println("DVD an"); }
+}
+
+class Sound {
+    void an() { System.out.println("Sound an"); }
+}
+
+class HomeCinemaFacade {
+    private DVD dvd = new DVD();
+    private Sound sound = new Sound();
+
+    void filmStarten() {
+        dvd.an();
+        sound.an();
+    }
+}
+
+class FacadeMain {
+    public static void main(String[] args) {
+
+        HomeCinemaFacade cinema = new HomeCinemaFacade();
+        cinema.filmStarten();
+    }
+}
+
+
+// ===============================================================
+// 5️⃣ FACTORY PATTERN
+// ===============================================================
+
+interface Auto {
+    void fahren();
+}
+
+class BMW implements Auto {
+    public void fahren() {
+        System.out.println("BMW fährt");
+    }
+}
+
+class Audi implements Auto {
+    public void fahren() {
+        System.out.println("Audi fährt");
+    }
+}
+
+class AutoFactory {
+    static Auto create(String typ) {
+        if (typ.equals("BMW")) return new BMW();
+        if (typ.equals("Audi")) return new Audi();
+        return null;
+    }
+}
+
+class FactoryMain {
+    public static void main(String[] args) {
+
+        Auto auto = AutoFactory.create("BMW");
+        auto.fahren();
+    }
+}
+
+
+// ===============================================================
+// 6️⃣ ITERATOR PATTERN
+// ===============================================================
+
+class Tasche implements Iterable<String> {
+
+    List<String> liste = new ArrayList<>();
+
+    void add(String s) {
+        liste.add(s);
+    }
+
+    public Iterator<String> iterator() {
+        return liste.iterator();
+    }
+}
+
+class IteratorMain {
+    public static void main(String[] args) {
+
+        Tasche t = new Tasche();
+        t.add("Apfel");
+        t.add("Milch");
+
+        for (String s : t) {
+            System.out.println(s);
+        }
+    }
+}
+
+
+// ===============================================================
+// 7️⃣ OBSERVER PATTERN
+// ===============================================================
+
+interface Observer {
+    void update(String msg);
+}
+
+class NewsAgency {
+
+    List<Observer> observers = new ArrayList<>();
+
+    void register(Observer o) {
+        observers.add(o);
+    }
+
+    void notifyObservers(String msg) {
+        for (Observer o : observers)
+            o.update(msg);
+    }
+}
+
+class Leser implements Observer {
+    public void update(String msg) {
+        System.out.println("Neue Nachricht: " + msg);
+    }
+}
+
+class ObserverMain {
+    public static void main(String[] args) {
+
+        NewsAgency news = new NewsAgency();
+        news.register(new Leser());
+
+        news.notifyObservers("Breaking News!");
+    }
+}
+
+
+// ===============================================================
+// 8️⃣ SINGLETON PATTERN
+// ===============================================================
+
+class Singleton {
+
+    private static Singleton instance;
+
+    private Singleton() {}
+
+    static Singleton getInstance() {
+        if (instance == null)
+            instance = new Singleton();
+        return instance;
+    }
+
+    void log() {
+        System.out.println("Singleton arbeitet");
+    }
+}
+
+class SingletonMain {
+    public static void main(String[] args) {
+
+        Singleton s1 = Singleton.getInstance();
+        Singleton s2 = Singleton.getInstance();
+
+        System.out.println(s1 == s2); // true
+    }
+}
+
+
+// ===============================================================
+// 9️⃣ STRATEGY PATTERN
+// ===============================================================
+
+interface Strategy {
+    void execute();
+}
+
+class SchnellStrategy implements Strategy {
+    public void execute() {
+        System.out.println("Schnelle Route");
+    }
+}
+
+class Context {
+    private Strategy strategy;
+
+    void setStrategy(Strategy s) {
+        this.strategy = s;
+    }
+
+    void start() {
+        strategy.execute();
+    }
+}
+
+class StrategyMain {
+    public static void main(String[] args) {
+
+        Context c = new Context();
+        c.setStrategy(new SchnellStrategy());
+        c.start();
+    }
+}
+
+
+// ===============================================================
+// 🔟 TEMPLATE METHOD PATTERN
+// ===============================================================
+
+abstract class Getraenk {
+
+    public final void zubereiten() {
+        kochen();
+        mischen();
+        servieren();
+    }
+
+    void kochen() { System.out.println("Wasser kochen"); }
+
+    abstract void mischen();
+
+    void servieren() { System.out.println("Servieren"); }
+}
+
+class Tee extends Getraenk {
+    void mischen() {
+        System.out.println("Tee ziehen lassen");
+    }
+}
+
+class TemplateMain {
+    public static void main(String[] args) {
+
+        Getraenk tee = new Tee();
+        tee.zubereiten();
+    }
+}

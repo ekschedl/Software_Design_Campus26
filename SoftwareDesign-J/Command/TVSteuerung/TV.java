@@ -11,6 +11,8 @@ public class TV {
         }
         if (kanalNummer == 40) {
             kanalNummer = 1;
+            System.out.println("TV +1: " + kanalNummer);
+
         } else {
             kanalNummer++;
             System.out.println("TV +1: " + kanalNummer);
@@ -24,6 +26,8 @@ public class TV {
         } else {
             if (kanalNummer == 1) {
                 kanalNummer = 40;
+                System.out.println("TV -1: " + kanalNummer);
+
             } else {
                 kanalNummer--;
                 System.out.println("TV -1: " + kanalNummer);
