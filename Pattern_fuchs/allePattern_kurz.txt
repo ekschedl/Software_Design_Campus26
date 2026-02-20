@@ -3,7 +3,19 @@
 // (Kopierfertig – jede Sektion hat ein eigenes Main)
 // ===============================================================
 
+
 import java.util.*;
+
+// ===============================================================
+// ANSI COLOR HELPER
+// ===============================================================
+class Ansi {
+    public static final String RESET = "\u001B[0m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String CYAN = "\u001B[36m";
+    public static final String YELLOW = "\u001B[33m";
+    public static final String PURPLE = "\u001B[35m";
+}
 
 
 // ===============================================================
@@ -16,7 +28,7 @@ interface MediaPlayer {
 
 class OldDVDPlayer {
     void startDVD(String name) {
-        System.out.println("Old DVD startet: " + name);
+        System.out.println(Ansi.GREEN + "Old DVD startet: " + name + Ansi.RESET);
     }
 }
 
@@ -28,7 +40,7 @@ class DVDAdapter implements MediaPlayer {
     }
 
     public void play(String fileName) {
-        System.out.println("Adapter übersetzt...");
+        System.out.println(Ansi.CYAN + "Adapter übersetzt..." + Ansi.RESET);
         oldPlayer.startDVD(fileName);
     }
 }
@@ -51,7 +63,7 @@ interface Command {
 }
 
 class TV {
-    void kanalAuf() { System.out.println("TV Kanal +1"); }
+    void kanalAuf() { System.out.println(Ansi.YELLOW + "TV Kanal +1" + Ansi.RESET); }
 }
 
 class TVPlusCommand implements Command {
@@ -120,7 +132,7 @@ class DecoratorMain {
     public static void main(String[] args) {
 
         Kaffee k = new MilchDecorator(new Espresso());
-        System.out.println("Preis: " + k.preis());
+        System.out.println(Ansi.PURPLE + "Preis: " + k.preis() + Ansi.RESET);
     }
 }
 
@@ -130,11 +142,11 @@ class DecoratorMain {
 // ===============================================================
 
 class DVD {
-    void an() { System.out.println("DVD an"); }
+    void an() { System.out.println(Ansi.GREEN + "DVD an" + Ansi.RESET); }
 }
 
 class Sound {
-    void an() { System.out.println("Sound an"); }
+    void an() { System.out.println(Ansi.GREEN + "Sound an" + Ansi.RESET); }
 }
 
 class HomeCinemaFacade {
@@ -166,13 +178,13 @@ interface Auto {
 
 class BMW implements Auto {
     public void fahren() {
-        System.out.println("BMW fährt");
+        System.out.println(Ansi.CYAN + "BMW fährt" + Ansi.RESET);
     }
 }
 
 class Audi implements Auto {
     public void fahren() {
-        System.out.println("Audi fährt");
+        System.out.println(Ansi.CYAN + "Audi fährt" + Ansi.RESET);
     }
 }
 
@@ -218,7 +230,7 @@ class IteratorMain {
         t.add("Milch");
 
         for (String s : t) {
-            System.out.println(s);
+            System.out.println(Ansi.YELLOW + s + Ansi.RESET);
         }
     }
 }
@@ -248,7 +260,7 @@ class NewsAgency {
 
 class Leser implements Observer {
     public void update(String msg) {
-        System.out.println("Neue Nachricht: " + msg);
+        System.out.println(Ansi.GREEN + "Neue Nachricht: " + msg + Ansi.RESET);
     }
 }
 
@@ -280,7 +292,7 @@ class Singleton {
     }
 
     void log() {
-        System.out.println("Singleton arbeitet");
+        System.out.println(Ansi.PURPLE + "Singleton arbeitet" + Ansi.RESET);
     }
 }
 
@@ -305,7 +317,7 @@ interface Strategy {
 
 class SchnellStrategy implements Strategy {
     public void execute() {
-        System.out.println("Schnelle Route");
+        System.out.println(Ansi.CYAN + "Schnelle Route" + Ansi.RESET);
     }
 }
 
@@ -343,16 +355,16 @@ abstract class Getraenk {
         servieren();
     }
 
-    void kochen() { System.out.println("Wasser kochen"); }
+    void kochen() { System.out.println(Ansi.YELLOW + "Wasser kochen" + Ansi.RESET); }
 
     abstract void mischen();
 
-    void servieren() { System.out.println("Servieren"); }
+    void servieren() { System.out.println(Ansi.YELLOW + "Servieren" + Ansi.RESET); }
 }
 
 class Tee extends Getraenk {
     void mischen() {
-        System.out.println("Tee ziehen lassen");
+        System.out.println(Ansi.GREEN + "Tee ziehen lassen" + Ansi.RESET);
     }
 }
 
